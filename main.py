@@ -31,8 +31,13 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
-        for obj in grp_updatable:           # update all sprites
+        for obj in grp_updatable:           # update position of all sprites
             obj.update(dt)
+        
+        for asteroid in grp_asteroids:
+            if asteroid.check_collision(player):
+                print("Game Over!")
+                raise SystemExit()
 
         screen.fill((0,0,0))
         for obj in grp_drawable:            # draw all sprites
