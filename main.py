@@ -3,6 +3,7 @@ from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from bullet import Bullet
 
 def main():
     print("Starting asteroids!")
@@ -17,9 +18,11 @@ def main():
     grp_updatable = pygame.sprite.Group()
     grp_drawable = pygame.sprite.Group()
     grp_asteroids = pygame.sprite.Group()
+    grp_bullets = pygame.sprite.Group()
     Player.containers = (grp_updatable, grp_drawable)
     Asteroid.containers = (grp_updatable, grp_drawable, grp_asteroids)
     AsteroidField.containers = (grp_updatable)
+    Bullet.containers = (grp_updatable, grp_drawable, grp_bullets)
 
     # initiate objects
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -31,9 +34,10 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
-        for obj in grp_updatable:           # update position of all sprites
+        for obj in grp_updatable:           # 'update' manipulates vectors and velocities
             obj.update(dt)
         
+        print(f"asteroid group contains: {grp_asteroids}")
         for asteroid in grp_asteroids:
             if asteroid.check_collision(player):
                 print("Game Over!")
