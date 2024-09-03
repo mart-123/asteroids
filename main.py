@@ -36,7 +36,14 @@ def main():
         
         for obj in grp_updatable:           # 'update' manipulates vectors and velocities
             obj.update(dt)
-        
+
+        for asteroid in grp_asteroids:
+            for bullet in grp_bullets:
+                if asteroid.check_collision(bullet):
+                    asteroid.split()
+                    asteroid.kill()
+                    bullet.kill()
+
         for asteroid in grp_asteroids:
             if asteroid.check_collision(player):
                 print("Game Over!")
