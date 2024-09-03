@@ -37,7 +37,6 @@ def main():
         for obj in grp_updatable:           # 'update' manipulates vectors and velocities
             obj.update(dt)
         
-        print(f"asteroid group contains: {grp_asteroids}")
         for asteroid in grp_asteroids:
             if asteroid.check_collision(player):
                 print("Game Over!")
